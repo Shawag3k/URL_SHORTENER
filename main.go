@@ -9,12 +9,12 @@ import (
 
 	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
+	_ "github.com/lib/pq"
 	"go.uber.org/zap"
 )
 
 var (
-	db     *Database
-	logger *zap.Logger
+	db *Database
 )
 
 func init() {
@@ -27,7 +27,7 @@ func init() {
 
 func initRedis() (*redis.Client, error) {
 	client := redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
+		Addr: "my-redis:6379",
 		DB:   0,
 	})
 
@@ -39,7 +39,7 @@ func initRedis() (*redis.Client, error) {
 	fmt.Println("Connected to Redis")
 	return client, nil
 }
-func initDB(connStr string) {
+func initDB(connStr string, logger *zap.Logger) {
 	var err error
 	db, err = NewDatabase(connStr)
 	if err != nil {
@@ -57,7 +57,7 @@ func main() {
 		logger.Fatal("DB_CONN_STR environment variable is not set")
 	}
 
-	initDB(dbConnStr)
+	initDB(dbConnStr, logger) // Pass the logger object to the initDB function
 
 	// Initialize Fiber app
 	app := fiber.New()

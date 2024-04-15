@@ -17,6 +17,7 @@ func SetupRoutes(app *fiber.App, db *Database) {
 }
 
 // ShortenURL handles the logic for shortening a URL.
+// ShortenURL handles the logic for shortening a URL.
 func ShortenURL(db *Database) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		longURL := c.FormValue("url")

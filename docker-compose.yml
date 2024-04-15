@@ -4,11 +4,20 @@ services:
     build: .
     ports:
       - "8080:8080"
-    links:
-      - "my-redis:redis"
     depends_on:
       - my-redis
+      - postgresql
+    environment:
+      DB_CONN_STR: postgresql://seu_nome_de_usuario:seu_email:5432/url_shortener_db
   my-redis:
     image: "redis"
     ports:
       - "6379:6379"
+  postgresql:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "seu_email_ou_nome_de_usuário"
+      POSTGRES_PASSWORD: "sua_senha_postgres"
+      POSTGRES_DB: "url_shortener_db"

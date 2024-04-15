@@ -14,9 +14,9 @@ type RedisCache struct {
 func NewRedisCache() *RedisCache {
 	return &RedisCache{
 		client: redis.NewClient(&redis.Options{
-			Addr:     "redis:6379", // Usando o hostname "redis" e a porta 6379
-			Password: "",           // Senha, se necessário
-			DB:       0,            // Número do banco de dados Redis
+			Addr:     "my-redis:6379", // Usando o hostname "redis" e a porta 6379
+			Password: "",              // Senha, se necessário
+			DB:       0,               // Número do banco de dados Redis
 		}),
 	}
 }
