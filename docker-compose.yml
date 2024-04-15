@@ -1,0 +1,14 @@
+version: '3'
+services:
+  url_shortener:
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - "my-redis:redis"
+    depends_on:
+      - my-redis
+  my-redis:
+    image: "redis"
+    ports:
+      - "6379:6379"
